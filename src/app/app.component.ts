@@ -1,10 +1,19 @@
 import { Component } from '@angular/core';
 
-@Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
-})
+import { AccountService } from './_services/account.service';
+import { Account } from './_models/account';
+import {Role} from './_models/role';
+
+@Component({ selector: 'app', templateUrl: 'app.component.html' })
 export class AppComponent {
-  title = 'AuthAng6';
+    Role = Role;
+    account: Account;
+
+    constructor(private accountService: AccountService) {
+        this.accountService.account.subscribe(x => this.account = x);
+    }
+
+    logout() {
+        this.accountService.logout();
+    }
 }
